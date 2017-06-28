@@ -49,7 +49,7 @@
 机器进程和进程标识组成的64bit Long几乎不变，只变动另一个Long。
 
 ###### 2.2.3  MongoDB ObjectID
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MongoDB中每一条记录都有一个id字段用来唯一标示本记录。如果用户插入数据时没有显示提供id字段，那么系统会自动生成一个。ObjectID一共12Bytes，设计的时候充分考虑了分布式环境下使用的情况，所以能保证在一个分布式MongoDB集群中唯一。ObjectID格式为：0~4 Byte是Unix Timestamp。 4~7 Byte是当前机器“hostname/mac地址/虚拟编号”其中之一的MD5结果的前3个字节。 7~9 Byte是当前进程的PID。 9~12Byte是累加计数器或是一个随机数（只有当不支持累加计数器时才用随机数）。 最后生成的仍然是一个用16进制表示的串
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MongoDB中每一条记录都有一个id字段用来唯一标示本记录。如果用户插入数据时没有显示提供id字段，那么系统会自动生成一个。ObjectID一共12Bytes，设计的时候充分考虑了分布式环境下使用的情况，所以能保证在一个分布式MongoDB集群中唯一。ObjectID格式为：0\~4 Byte是Unix Timestamp。 4\~7 Byte是当前机器“hostname/mac地址/虚拟编号”其中之一的MD5结果的前3个字节。 7\~9 Byte是当前进程的PID。 9\~12Byte是累加计数器或是一个随机数（只有当不支持累加计数器时才用随机数）。 最后生成的仍然是一个用16进制表示的串
 优点：1.ObjectID时间上有序。2.ObjectID本身包含了有用的信息，通过直接解码ObjectID即可获取到相应的信息。
 缺点：1.当timestamp段一样时，由于MD5只取前3Bytes，有可能造成pc段一样，这样就会有重复的ID出现。2. ID间隙较大（当某段时间不生成ID，那么这个timestamp段浪费许多空间）
 ###### 2.2.4 Twitter的snowflake派号器
